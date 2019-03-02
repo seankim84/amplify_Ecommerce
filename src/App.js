@@ -1,12 +1,50 @@
 import React from "react";
-import  { AmplifyTheme, withAuthenticator }  from 'aws-amplify-react';
+import  { AmplifyTheme, Authenticator }  from 'aws-amplify-react';
+import { Auth, Hub }  from 'aws-amplify';
 import "./App.css";
 
 class App extends React.Component {
-  state = {};
+  state = {
+    user: null
+  };
+
+  componentDidMount(){
+    console.dir(AmplifyTheme);
+    this.getUserData();
+    Hub.listen('auth', this, 'onHubCapsule') // channel /withintheComponent /specific function name
+  }
+
+  getUserData = async () => {
+    const user = await Auth.currentAuthenticatedUser()
+    user ? this.setState({ user }) : this.setState({ user: null })
+  }
+
+  onHubCapsule = capsule  => {
+    switch(capsule.payload.event){
+      case "signIn":
+        console.log ("SignIn")
+        this.getUserData()
+        break;
+
+      case "signUp":
+        console.log("SignedUp");
+        break;
+
+      case "signOut":
+        console.log("signOut")
+        this.setState({user:null})
+        break;
+
+      default: 
+        return;
+    }
+  }
 
   render() {
-    return <div>App</div>;
+    const { user } = this.state;
+    return !user ? (
+      <Authenticator theme={theme} />
+    ): <div>App</div>
   }
 }
 
@@ -31,4 +69,5 @@ const theme = {
   }
 }
 
-export default withAuthenticator(App, true, [], null, theme);
+// export default Authenticator(App, true, [], null, theme);
+export default App;
