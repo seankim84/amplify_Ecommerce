@@ -8,7 +8,7 @@ const Navbar = ({ user, handleSignout }) => (
             <Nav.Item index="1">    
                 <NavLink to="/" className="nav-link">
                     <span className="app-title">
-                        <img src="https://icon.now.sh/account_balance/f90" alt="App Icon"/>
+                        <img style={{paddingRight:"0.5rem"}} src="https://icon.now.sh/account_balance/f90" alt="App Icon"/>
                         Amplify Shop
                     </span>
                 </NavLink>  
