@@ -71,9 +71,6 @@ export const onCreateProduct = `subscription OnCreateProduct {
     market {
       id
       name
-      products {
-        nextToken
-      }
       tags
       owner
       createdAt
@@ -97,9 +94,6 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     market {
       id
       name
-      products {
-        nextToken
-      }
       tags
       owner
       createdAt
@@ -123,9 +117,6 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     market {
       id
       name
-      products {
-        nextToken
-      }
       tags
       owner
       createdAt
